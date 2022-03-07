@@ -9,7 +9,7 @@ RSpec.describe "reading_time method" do
 
   it "estimates reading time of a text" do
     result = reading_time("")
-    expect(result).to eq "0 secs"
+    expect(result).to eq "0.0 secs"
   end
 
   it "estimates reading time of a text" do
