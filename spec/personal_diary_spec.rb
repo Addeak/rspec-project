@@ -1,15 +1,15 @@
 require 'personal_diary'
 
-describe "make_snippet method" do
-  it "returns the first five words and ..." do
-    result = make_snippet("I had a jacket delivered today and it was great!")
-    expect(result).to eq "I had a jacket delivered..."
+RSpec.describe DiaryEntry do
+  it "returns the title as a string" do
+    entry = DiaryEntry.new("03-12-21", "So much exciting stuff happened today. OMG!!")
+    result = entry.title
+    expect(result).to eq "03-12-21"
   end
-end
 
-describe "count_words method" do
-  it "returns number of words in a string" do
-    result = count_words("I had a jacket delivered today and it was great!")
-    expect(result).to eq 10
+  it "returns the contents as a string" do
+    entry = DiaryEntry.new("03-12-21", "So much exciting stuff happened today. OMG!!")
+    result = entry.contents
+    expect(result).to eq "So much exciting stuff happened today. OMG!!"
   end
 end
