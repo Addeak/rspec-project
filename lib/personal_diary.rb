@@ -1,13 +1,8 @@
-# def make_snippet(str)
-#   arr = str.split(" ")
-#   new_arr = arr.select.with_index { |word, i| i < 5 }
-#   new_arr.join(" ") + "..."
-# end
-
 class DiaryEntry
   def initialize(title, contents) # title, contents are strings
     @title = title
     @contents = contents
+    @cursor = 0
   end
 
   def title
@@ -19,21 +14,28 @@ class DiaryEntry
   end
 
   def count_words
-    @contents.split.count
+    contents.split(" ").count
   end
 
   def reading_time(wpm) 
-    (count_words / wpm.to_f).round(2)
+    (count_words / wpm.to_f).ceil
   end
 
-  def reading_chunk(wpm, minutes) # `wpm` is an integer representing the number
-                                  # of words the user can read per minute
-                                  # `minutes` is an integer representing the
-                                  # number of minutes the user has to read
-    # Returns a string with a chunk of the contents that the user could read
-    # in the given number of minutes.
-    # If called again, `reading_chunk` should return the next chunk, skipping
-    # what has already been read, until the contents is fully read.
-    # The next call after that it should restart from the beginning.
+  def reading_chunk(wpm, minutes) 
+    words_in_time = wpm * minutes
+    end_cursor = (words_in_time + @cursor)
+    word_list = words[@cursor...end_cursor]
+    if end_cursor > count_words
+      @cursor = 0
+    else
+      @cursor = end_cursor
+    end
+    word_list.join(" ")
+  end
+
+  private
+
+  def words
+    @contents.split
   end
 end
