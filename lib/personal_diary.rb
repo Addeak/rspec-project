@@ -25,7 +25,7 @@ class DiaryEntry
     words_in_time = wpm * minutes
     end_cursor = (words_in_time + @cursor)
     word_list = words[@cursor...end_cursor]
-    if end_cursor > count_words
+    if end_cursor >= count_words
       @cursor = 0
     else
       @cursor = end_cursor

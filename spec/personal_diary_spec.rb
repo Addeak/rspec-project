@@ -1,4 +1,4 @@
-require 'diary_entry'
+require 'personal_diary'
 
 RSpec.describe DiaryEntry do
   it "returns title as a string" do
@@ -42,12 +42,21 @@ RSpec.describe DiaryEntry do
     expect(result).to eq "bear which I won at"
   end
 
-  it "restarts when gets to end" do
+  it "restarts when passes end" do
     entry = DiaryEntry.new("Hey", "I have a big teddy bear which I won at a fair.")
     entry.reading_chunk(5,1)
     entry.reading_chunk(5,1)
     entry.reading_chunk(5,1)
     result = entry.reading_chunk(5, 1)
     expect(result).to eq "I have a big teddy"
+  end
+
+  it "restarts when exactly at end" do
+    entry = DiaryEntry.new("Hey", "I have a big teddy bear which I won at a fair.")
+    entry.reading_chunk(4,1)
+    entry.reading_chunk(4,1)
+    entry.reading_chunk(4,1)
+    result = entry.reading_chunk(4, 1)
+    expect(result).to eq "I have a big"
   end
 end
