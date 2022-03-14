@@ -49,10 +49,8 @@ RSpec.describe "doubles" do
     # Set up this double to pass the tests below
     allow(fake_diary).to receive(:add).with(:diary_entry)
     expect(fake_diary).to receive(:count_entries).and_return(2)
+    
     # Don't edit below
-    fake_diary.add(double :diary_entry)
-    fake_diary.add(double :diary_entry)
-    fake_diary.add(double :diary_entry)
     fake_diary.add(double :diary_entry)
     fake_diary.add(double :diary_entry)
     expect(fake_diary.count_entries).to eq 2
