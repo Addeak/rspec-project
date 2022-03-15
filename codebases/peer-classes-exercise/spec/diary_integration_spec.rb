@@ -1,18 +1,25 @@
-require 'diary'
 require 'secret_diary'
+require 'diary'
 
-
-RSpec.describe "integration" do
-  it "initialises the secret diary" do
-    diary = Diary.new("This is some contents")
-    secret_diary = SecretDiary.new(diary)
-    expect { secret_diary.read }.to raise_error "Go away!"
+RSpec.describe "Diary Integration" do
+  it "initially does not allow user to read" do
+    my_diary = Diary.new("I went to the gym")
+    my_secret_diary = SecretDiary.new(my_diary)
+    expect { my_secret_diary.read }.to raise_error "Go away!"
   end
 
-  it "reads diary when unlocked" do 
-    diary = Diary.new("This is some contents")
-    secret_diary = SecretDiary.new(diary)
-    secret_diary.unlock
-    expect(secret_diary.read).to eq "This is some contents"
+  it "unlocks the diary" do
+    my_diary = Diary.new("I went to the gym")
+    my_secret_diary = SecretDiary.new(my_diary)
+    my_secret_diary.unlock
+    expect(my_secret_diary.read).to eq "I went to the gym"
+  end
+
+  it "locks the diary" do
+    my_diary = Diary.new("I went to the gym")
+    my_secret_diary = SecretDiary.new(my_diary)
+    my_secret_diary.unlock
+    my_secret_diary.lock
+    expect { my_secret_diary.read }.to raise_error "Go away!"
   end
 end
